@@ -1,32 +1,41 @@
-# React + TypeScript + Vite
+# Blok Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Cliente React (Vite + TypeScript) para **Blok**. Consume `blok-api` con JWT.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19 + React Router
+- Vite (proxy `/api` → `http://localhost:8000`)
+- Estructura modular: `core/` + `modules/notas/`
 
-## React Compiler
+## Arranque
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. API arriba: en `blok-api` → `docker compose up`
+2. En esta carpeta:
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+cp .env.example .env
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Abre http://localhost:5173
+
+## Rutas
+
+| Ruta | Descripción |
+|------|-------------|
+| `/login` | Login |
+| `/register` | Registro |
+| `/` | Notas (protegida) |
+
+## Estructura
+
+```
+src/
+├── core/
+│   ├── api/client.ts
+│   └── auth/          # context, storage, ProtectedRoute
+├── modules/notas/     # api, hooks, components, pages
+└── pages/             # login, register
+```
